@@ -1,0 +1,49 @@
+<!DOCTYPE html>  <html lang="hi">  
+<head>  
+  <title>Number Guess Game</title>  
+  <style>  
+    body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }  
+    input { padding: 10px; font-size: 16px; }  
+    button { padding: 10px 20px; font-size: 16px; margin: 10px; }  
+  </style>  
+</head>  
+<body>    <h2>Number Guess Game</h2>  
+  <p>Guess a number between 1 and 10 (1 से 10 के बीच number guess करो)</p>    <input type="number" id="guess" min="1" max="10" placeholder="Enter your guess">  
+  <button onclick="checkNumber()">Check</button>  
+  <button onclick="resetGame()">Reset Game</button>    <p id="result"></p>  
+  <p id="attempts">Attempts: 0</p>    <script>  
+    let randomNumber = Math.floor(Math.random() * 10) + 1;  
+    let attempts = 0;  
+  
+    function checkNumber() {  
+      let userGuess = parseInt(document.getElementById("guess").value);  
+      attempts++;  
+      document.getElementById("attempts").innerText = "Attempts: " + attempts;  
+  
+      if (isNaN(userGuess) || userGuess < 1 || userGuess > 10) {  
+        document.getElementById("result").innerText = "Please enter a valid number between 1 and 10.";  
+        return;  
+      }  
+  
+      if (userGuess === randomNumber) {  
+        document.getElementById("result").innerText = "🎉 Correct guess! You won in " + attempts + " attempts.";  
+        document.getElementById("guess").disabled = true;  
+        document.querySelector('button[onclick="checkNumber()"]').disabled = true;  
+      } else if (userGuess < randomNumber) {  
+        document.getElementById("result").innerText = "❌ Too low! Try again. (कम है, फिर try करो)";  
+      } else {  
+        document.getElementById("result").innerText = "❌ Too high! Try again. (ज्यादा है, फिर try करो)";  
+      }  
+    }  
+  
+    function resetGame() {  
+      randomNumber = Math.floor(Math.random() * 10) + 1;  
+      attempts = 0;  
+      document.getElementById("result").innerText = "";  
+      document.getElementById("attempts").innerText = "Attempts: 0";  
+      document.getElementById("guess").value = "";  
+      document.getElementById("guess").disabled = false;  
+      document.querySelector('button[onclick="checkNumber()"]').disabled = false;  
+    }  
+  </script>  </body>  
+</html> 
